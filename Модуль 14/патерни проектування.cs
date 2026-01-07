@@ -4,9 +4,7 @@ using System.Threading;
 
 namespace SingletonAppConfig
 {
-    /// <summary>
-    /// Клас для зберігання глобальних налаштувань додатка з використанням патерну Singleton
-    /// </summary>
+  
     public sealed class AppConfig
     {
         // Приватне статичне поле для зберігання єдиного екземпляра
@@ -18,19 +16,14 @@ namespace SingletonAppConfig
         // Словник для зберігання налаштувань
         private readonly Dictionary<string, string> _settings;
         
-        /// <summary>
-        /// Приватний конструктор для запобігання створення екземплярів ззовні
-        /// </summary>
+       
         private AppConfig()
         {
             _settings = new Dictionary<string, string>();
             InitializeDefaultSettings();
         }
         
-        /// <summary>
-        /// Публічна властивість для доступу до єдиного екземпляра
-        /// З використанням подвійної перевірки блокування для потокобезпеки
-        /// </summary>
+      
         public static AppConfig Instance
         {
             get
@@ -49,9 +42,7 @@ namespace SingletonAppConfig
             }
         }
         
-        /// <summary>
-        /// Ініціалізація налаштувань за замовчуванням
-        /// </summary>
+      
         private void InitializeDefaultSettings()
         {
             _settings["AppName"] = "MyApplication";
@@ -62,12 +53,7 @@ namespace SingletonAppConfig
             _settings["MaxConnections"] = "10";
         }
         
-        /// <summary>
-        /// Додавання або оновлення налаштування
-        /// </summary>
-        /// <param name="key">Ключ налаштування</param>
-        /// <param name="value">Значення налаштування</param>
-        /// <exception cref="ArgumentNullException">Якщо ключ або значення null</exception>
+      
         public void SetSetting(string key, string value)
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -86,12 +72,7 @@ namespace SingletonAppConfig
             }
         }
         
-        /// <summary>
-        /// Отримання значення налаштування за ключем
-        /// </summary>
-        /// <param name="key">Ключ налаштування</param>
-        /// <returns>Значення налаштування або null, якщо ключ не знайдено</returns>
-        /// <exception cref="ArgumentNullException">Якщо ключ null</exception>
+    
         public string GetSetting(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -105,22 +86,14 @@ namespace SingletonAppConfig
             }
         }
         
-        /// <summary>
-        /// Отримання значення налаштування з урахуванням значення за замовчуванням
-        /// </summary>
-        /// <param name="key">Ключ налаштування</param>
-        /// <param name="defaultValue">Значення за замовчуванням, якщо ключ не знайдено</param>
-        /// <returns>Значення налаштування або defaultValue</returns>
+        
         public string GetSetting(string key, string defaultValue)
         {
             string value = GetSetting(key);
             return value ?? defaultValue;
         }
         
-        /// <summary>
-        /// Отримання всіх налаштувань у вигляді копії словника
-        /// </summary>
-        /// <returns>Копія словника налаштувань</returns>
+        
         public Dictionary<string, string> GetAllSettings()
         {
             lock (_lock)
@@ -129,11 +102,7 @@ namespace SingletonAppConfig
             }
         }
         
-        /// <summary>
-        /// Видалення налаштування за ключем
-        /// </summary>
-        /// <param name="key">Ключ налаштування</param>
-        /// <returns>true, якщо налаштування було видалено; false, якщо ключ не знайдено</returns>
+       
         public bool RemoveSetting(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -147,11 +116,7 @@ namespace SingletonAppConfig
             }
         }
         
-        /// <summary>
-        /// Перевірка існування налаштування за ключем
-        /// </summary>
-        /// <param name="key">Ключ налаштування</param>
-        /// <returns>true, якщо налаштування існує; false - в іншому випадку</returns>
+       
         public bool ContainsSetting(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
@@ -165,9 +130,7 @@ namespace SingletonAppConfig
             }
         }
         
-        /// <summary>
-        /// Очищення всіх налаштувань (крім системних за замовчуванням)
-        /// </summary>
+      
         public void ClearSettings()
         {
             lock (_lock)
@@ -177,9 +140,7 @@ namespace SingletonAppConfig
             }
         }
         
-        /// <summary>
-        /// Отримання кількості налаштувань
-        /// </summary>
+       
         public int SettingsCount
         {
             get
@@ -191,9 +152,7 @@ namespace SingletonAppConfig
             }
         }
         
-        /// <summary>
-        /// Перевантажений метод ToString для зручного виводу всіх налаштувань
-        /// </summary>
+      
         public override string ToString()
         {
             lock (_lock)
@@ -204,9 +163,7 @@ namespace SingletonAppConfig
         }
     }
     
-    /// <summary>
-    /// Клас для демонстрації роботи з AppConfig
-    /// </summary>
+   
     class Program
     {
         static void Main(string[] args)
@@ -379,13 +336,9 @@ namespace SingletonAppConfig
         }
     }
     
-    /// <summary>
-    /// Розширена версія AppConfig з підтримкою типізованих налаштувань
-    /// </summary>
+  
     public sealed class AppConfigExtended : AppConfig
     {
-        // Примітка: Цей клас демонструє, як можна розширити функціональність,
-        // але не може наслідувати AppConfig, оскільки він sealed.
-        // На практиці можна створити новий Singleton або використовувати композицію.
+      
     }
 }
